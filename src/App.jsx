@@ -33,9 +33,9 @@ import EditProfile from "./pages/EditProfile";
 import DeliveredOrders from "./pages/Delivery_Boy/DeliveredOrders";
 import { lazy, Suspense } from "react";
 
-export const serverUrl = import.meta.env.VITE_API_URL
-
 const Grocery = lazy(() => import("./pages/Customer/Grocery"));
+
+export const serverUrl = import.meta.env.VITE_API_URL
 
 function App() {
   const { userData } = useSelector(state => state.user);
