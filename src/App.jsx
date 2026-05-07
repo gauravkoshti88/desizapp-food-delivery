@@ -25,7 +25,6 @@ import TrackOrder from "./pages/Customer/TrackOrder";
 import Shop from "./pages/Customer/Shop";
 import OrderSuccess from "./components/DeliveryBoy/OrderSuccess";
 import { useEffect } from "react";
-import Grocery from "./pages/Customer/Grocery";
 import ZappShorts from "./pages/Customer/ZappShorts";
 import { initSocket } from "./utils/socketService";
 import { registerSocketEvents } from "./listeners/socketListeners";
