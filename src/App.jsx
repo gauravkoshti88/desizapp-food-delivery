@@ -32,8 +32,11 @@ import { registerSocketEvents } from "./listeners/socketListeners";
 import NotFound from './pages/NotFound'
 import EditProfile from "./pages/EditProfile";
 import DeliveredOrders from "./pages/Delivery_Boy/DeliveredOrders";
+import { lazy, Suspense } from "react";
 
 export const serverUrl = import.meta.env.VITE_API_URL
+
+const Grocery = lazy(() => import("./pages/Customer/Grocery"));
 
 function App() {
   const { userData } = useSelector(state => state.user);
@@ -46,24 +49,24 @@ function App() {
   useGetMyOrders()
   useUpdateLocation()
 
-  useEffect(()=>{
+  useEffect(() => {
     const socket = initSocket(serverUrl);
-    registerSocketEvents({dispatch})
-    socket.on("connect", ()=>{
-      if(userData){
-        socket.emit("identity", {userId: userData._id})
+    registerSocketEvents({ dispatch })
+    socket.on("connect", () => {
+      if (userData) {
+        socket.emit("identity", { userId: userData._id })
       }
     })
-    return ()=> {
+    return () => {
       socket.disconnect();
     }
-  },[userData?._id])
+  }, [userData?._id])
 
   return (
     <Routes>
       <Route path="/" element={<Welcome />} />
-      <Route path="/server-error" element={<InternalServerError/>}/>
-      <Route path="*" element={<NotFound/>}/>
+      <Route path="/server-error" element={<InternalServerError />} />
+      <Route path="*" element={<NotFound />} />
 
       <Route path="/register" element={!userData ? <Register /> : <Navigate to="/home" />} />
       <Route path="/login" element={!userData ? <Login /> : <Navigate to="/home" />} />
@@ -87,17 +90,28 @@ function App() {
 
       <Route path="/track-order/:orderId" element={userData ? <TrackOrder /> : <Navigate to="/login" />} />
 
-      <Route path="/shop/:shopId" element={userData ? <Shop /> : <Navigate to="/login" />}/>
+      <Route path="/shop/:shopId" element={userData ? <Shop /> : <Navigate to="/login" />} />
 
-      <Route path="/order-delivered" element={userData ? <OrderSuccess /> : <Navigate to="/login" />}/>
+      <Route path="/order-delivered" element={userData ? <OrderSuccess /> : <Navigate to="/login" />} />
 
-      <Route path="/grocery" element={userData ? <Grocery /> : <Navigate to="/login" />}/>
+      <Route
+        path="/grocery"
+        element={
+          userData ? (
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <Grocery />
+            </React.Suspense>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
 
-      <Route path="/zapp-shorts" element={userData ? <ZappShorts /> : <Navigate to="/login" />}/>
+      <Route path="/zapp-shorts" element={userData ? <ZappShorts /> : <Navigate to="/login" />} />
 
-      <Route path="/edit-profile" element={userData ? <EditProfile /> : <Navigate to="/login" />}/>
+      <Route path="/edit-profile" element={userData ? <EditProfile /> : <Navigate to="/login" />} />
 
-      <Route path="/delivered-orders" element={userData ? <DeliveredOrders /> : <Navigate to="/login" />}/>
+      <Route path="/delivered-orders" element={userData ? <DeliveredOrders /> : <Navigate to="/login" />} />
 
     </Routes>
   )
