@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Logo from '../../assets/ZappGrocery.png'
-import Fruits from '../../assets/Grocery/fruits.png'
-import Vegetables from '../../assets/Grocery/vegetables.png'
+import Fruits from '../../assets/Grocery/Fruits.png'
+import Vegetables from '../../assets/Grocery/Vegetables.png'
 import Dairy from '../../assets/Grocery/dairy.png'
-import Bakery from '../../assets/Grocery/bakery.png'
+import Bakery from '../../assets/Grocery/Bakery.png'
 import { useNavigate } from 'react-router-dom'
 
 const categories = [
