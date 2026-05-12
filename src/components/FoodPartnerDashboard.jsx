@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './Reusable/Navbar'
 import { useSelector } from 'react-redux'
 import { FaUtensils } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import ShopItemCard from './FoodPartner/ShopItemCard';
+import useGetMyShop from '../hooks/useGetMyShop';
 
 function FoodPartnerDashboard() {
   const navigate = useNavigate();
