@@ -4,9 +4,10 @@ import { FaPlus } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import blankProfile from '../assets/blank-profile.png'
 import axios from 'axios';
-import {serverUrl} from '../App'
+import { serverUrl } from '../App'
 import { setUserData } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 function EditProfile() {
   const { userData } = useSelector(state => state.user)
@@ -61,9 +62,9 @@ function EditProfile() {
       if (formData.profileImage) {
         data.append('profileImage', formData.profileImage);
       }
-   
+
       const response = await axios.post(serverUrl + '/api/user/edit-profile', data, { withCredentials: true });
-    
+
       dispatch(setUserData(response.data));
       toast("Profile Updated Successfully ✅", {
         position: "top-right",
@@ -108,6 +109,12 @@ function EditProfile() {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-gradient-to-b from-white to-gray-50 rounded-3xl shadow-2xl border border-gray-100 mt-8">
+      <div
+        onClick={() => navigate("/home")}
+        className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-3 left-3"
+      >
+        <IoIosArrowRoundBack size={24} className="text-orange-600" />
+      </div>
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
           Edit Profile

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { serverUrl } from '../../App';
 import ShortsCard from '../../components/Customer/ShortsCard'
+import { IoIosArrowRoundBack } from 'react-icons/io';
 
 const ZappShorts = () => {
   const navigate = useNavigate();
@@ -62,8 +63,14 @@ const ZappShorts = () => {
   return (
     <div className='w-full min-h-screen bg-black overflow-hidden flex justify-center items-center'>
       <div className="w-full h-20 flex items-center gap-5 px-5 fixed top-2.5 left-2.5 z-[100]" >
-        <FaArrowLeftLong className='text-white w-6.25 h-6.25 cursor-pointer active:scale-95' onClick={() => navigate("/home")} />
-        <h1 className="text-white font-semibold text-[20px]">Shorts</h1>
+        <div
+          onClick={() => navigate("/home")}
+          className="px-1 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-1 left-1"
+        >
+          <IoIosArrowRoundBack size={24} className="text-orange-600" />
+          
+        </div>
+        
       </div>
 
       <div

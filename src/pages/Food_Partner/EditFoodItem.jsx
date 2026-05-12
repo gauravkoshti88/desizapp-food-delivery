@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { serverUrl } from '../../App';
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoIosArrowRoundBack, IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { useDispatch } from 'react-redux';
@@ -88,12 +88,12 @@ export default function EditFoodItem() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 py-8 px-4">
             {/* Back Button */}
-            <button
-                className="fixed top-6 left-6 bg-white p-3 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 z-50"
-                onClick={() => navigate(-1)}
+            <div
+                onClick={() => navigate("/home")}
+                className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-3 left-3"
             >
-                <IoMdArrowRoundBack className="text-slate-700 w-5 h-5" />
-            </button>
+                <IoIosArrowRoundBack size={24} className="text-orange-600" />
+            </div>
 
             {/* Form Container */}
             <div className="max-w-md mx-auto mt-10 sm:mt-0">

@@ -15,6 +15,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import { IoIosArrowRoundBack } from 'react-icons/io';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
@@ -94,15 +95,12 @@ function ShopEarning() {
 
     return (
         <>
-            {/* Back Button */}
-            <button
-                onClick={() => navigate(-1)}
-                className="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur-xl hover:bg-white shadow-lg border border-gray-200 rounded-xl px-4 py-2 flex items-center gap-2 transition-all duration-300 hover:-translate-y-1 hover:scale-105"
-                aria-label="Go back"
+            <div
+                onClick={() => navigate("/home")}
+                className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-3 left-3"
             >
-                <FaArrowLeft className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700" />
-                <span className="text-sm font-medium text-gray-700">Back</span>
-            </button>
+                <IoIosArrowRoundBack size={24} className="text-orange-600" />
+            </div>
 
             <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-10 px-4 sm:px-6 lg:px-8 pt-20">
                 {/* Header */}
@@ -188,8 +186,8 @@ function ShopEarning() {
                                 </p>
                                 <span
                                     className={`inline-block px-2 py-1 text-xs rounded-full font-medium ${order.paymentMethod === "COD"
-                                            ? "bg-green-100 text-green-800"
-                                            : "bg-blue-100 text-blue-800"
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-blue-100 text-blue-800"
                                         }`}
                                 >
                                     {order.paymentMethod}

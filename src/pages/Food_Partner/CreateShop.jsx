@@ -5,7 +5,7 @@ import { serverUrl } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setShopData } from "../../redux/slices/shopSlice";
 import { ClipLoader } from "react-spinners";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoIosArrowRoundBack, IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateShop() {
@@ -28,30 +28,30 @@ export default function CreateShop() {
   const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
-  const { name, value, files } = e.target;
+    const { name, value, files } = e.target;
 
-  if (files && files[0]) {
-    const file = files[0];
-    setFormData({
-      ...formData,
-      [name]: file,
-      imagePreview: URL.createObjectURL(file), // create preview URL
-    });
-  } else {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }
-};
+    if (files && files[0]) {
+      const file = files[0];
+      setFormData({
+        ...formData,
+        [name]: file,
+        imagePreview: URL.createObjectURL(file), // create preview URL
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
 
 
   const handleDeleteImage = () => {
-  setFormData({ ...formData, image: null, imagePreview: "" });
-  if (fileInputRef.current) {
-    fileInputRef.current.value = ""; // clear the file input
-  }
-};
+    setFormData({ ...formData, image: null, imagePreview: "" });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // clear the file input
+    }
+  };
 
 
   const handleSubmit = async (e) => {
@@ -76,8 +76,11 @@ export default function CreateShop() {
 
   return (
     <div className="max-w-xl mx-auto mt-5 bg-white shadow-lg rounded-xl p-5 mb-10">
-      <div className="fixed left-5 top-5" onClick={() => navigate(-1)}>
-        <IoMdArrowRoundBack size={20} />
+      <div
+        onClick={() => navigate("/home")}
+        className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-3 left-3"
+      >
+        <IoIosArrowRoundBack size={24} className="text-orange-600" />
       </div>
       <div className="flex flex-col items-center justify-center">
         <FaUtensils className="text-[#ff4d2d] w-14 h-14 sm:w-20 sm:h-20 mb-2 bg-amber-200 p-3 rounded-3xl" />
