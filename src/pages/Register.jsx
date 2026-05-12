@@ -13,6 +13,7 @@ import axios from 'axios';
 import { serverUrl } from '../App';
 import { ClipLoader } from "react-spinners";
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function Register() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Register() {
   const [role, setRole] = useState("user");
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -43,7 +45,6 @@ function Register() {
         style: { backgroundColor: "orange", color: "white", fontWeight: "bold" },
         autoClose: 3000,
       });
-
     }
   }
 
@@ -149,13 +150,21 @@ function Register() {
           {/* Password */}
           <div>
             <label className="block text-sm font-bold text-slate-800 mb-2">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Create password"
-              required
-              className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-300 bg-white/80 backdrop-blur-sm text-lg"
-            />
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Create password"
+                required
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-300 bg-white/80 backdrop-blur-sm text-lg pr-10"
+              />
+              <span
+                className="absolute right-3 top-3 cursor-pointer text-slate-600 hover:text-orange-500"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
+              </span>
+            </div>
           </div>
 
           {/* Role Selection - Simple */}

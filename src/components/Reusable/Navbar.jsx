@@ -18,6 +18,8 @@ import SideBar from "./SideBar";
 import { BsPlusCircleFill } from "react-icons/bs";
 import Location from "./Location";
 import { toast } from "react-toastify";
+import { setShopData } from "../../redux/slices/shopSlice";
+import { GiTwoCoins } from "react-icons/gi";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -40,6 +42,9 @@ function Navbar() {
     try {
       const response = await axios.post(serverUrl + "/api/auth/user/logout", {}, { withCredentials: true });
       dispatch(setUserData(null))
+      if (userData.role == "foodPartner") {
+        dispatch(setShopData(null))
+      }
     } catch (error) {
       toast.error("Logout Error", {
         position: "top-right",
@@ -145,6 +150,21 @@ function Navbar() {
               <BsPlusCircleFill size={20} />
             </div>
             <span>Add Items</span>
+          </button>
+
+          <button
+            onClick={() => { navigate("/shop-earning"); setSelected("earning") }}
+            className={`group flex items-center gap-1 px-3 py-2 rounded-2xl font-semibold text-sm tracking-tight
+          transition-all duration-300 backdrop-blur-sm
+          ${selected === "earning"
+                ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+                : "bg-white/80 text-slate-800 hover:text-slate-900 shadow-md hover:shadow-lg border border-amber-200/60 hover:border-amber-300/80"
+              }`}
+          >
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center">
+              <GiTwoCoins size={24} color="#FFD700" />
+            </div>
+            <span>Shop Earning</span>
           </button>
         </div>}
 

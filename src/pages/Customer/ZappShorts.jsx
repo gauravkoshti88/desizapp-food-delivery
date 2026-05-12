@@ -17,7 +17,7 @@ const ZappShorts = () => {
   // Fetch shorts
   const fetchShorts = async () => {
     try {
-      const res = await axios.get(serverUrl+`/api/food/all-items?page=${page}&limit=10`,{withCredentials:true})
+      const res = await axios.get(serverUrl + `/api/food/all-items?page=${page}&limit=10`, { withCredentials: true })
 
       if (res.data.length === 0) {
         setHasMore(false);
@@ -74,14 +74,32 @@ const ZappShorts = () => {
           setActiveIndex(index);
         }}
       >
-        {shortsData.map((shorts, index) => (
-          <div className='h-screen snap-start' key={index}>
-            {activeIndex === index && <ShortsCard shorts={shorts} />}
+        {shortsData.length > 0 ? (
+          shortsData.map((shorts, index) => (
+            <div className='h-screen snap-start' key={index}>
+              {activeIndex === index && <ShortsCard shorts={shorts} />}
+            </div>
+          ))
+        ) : (
+          <div className="w-full h-[80vh] flex flex-col justify-center items-center 
+                    bg-gray-900 text-white rounded-xl p-8 m-5 shadow-lg">
+            <h2 className="text-2xl font-bold mb-3">No Shorts Available</h2>
+            <p className="text-gray-300 mb-6 text-center">
+              Looks like there are no food shorts to show right now.
+              Please check back later or explore other sections.
+            </p>
+            <button
+              onClick={() => navigate("/home")}
+              className="px-6 py-2 bg-orange-500 hover:bg-orange-600 
+                   rounded-lg text-white font-semibold transition-all duration-300"
+            >
+              Back to Home
+            </button>
           </div>
-        ))}
+        )}
 
         {/* Loader */}
-        {hasMore && (
+        {hasMore && shortsData.length > 0 && (
           <div ref={loaderRef} className="flex justify-center py-4 text-white">
             Loading more...
           </div>

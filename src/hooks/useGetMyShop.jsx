@@ -6,18 +6,21 @@ import { setShopData } from '../redux/slices/shopSlice';
 
 function useGetMyShop() {
     const dispatch = useDispatch();
+    const { userData } = useSelector(state => state.user);
 
     useEffect(() => {
         const fetchShop = async () => {
             try {
-                const response = await axios.get(serverUrl+"/api/shop/my-shop",{withCredentials:true});
+                const response = await axios.get(serverUrl + "/api/shop/my-shop", { withCredentials: true });
                 dispatch(setShopData(response.data))
             } catch (error) {
                 dispatch(setShopData(null))
             }
         }
-        fetchShop();
-    }, [dispatch])
+        if (userData?.role === "foodPartner") {
+            fetchShop();
+        }
+    }, [dispatch, userData])
 }
 
 export default useGetMyShop

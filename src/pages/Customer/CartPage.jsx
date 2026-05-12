@@ -16,14 +16,27 @@ const CartPage = () => {
       >
         <IoIosArrowRoundBack size={24} className="text-orange-600" />
       </button>
-      <div className={`max-w-4xl w-full ${cartItems.length == 0 ? "h-[600px]":""} bg-white shadow-lg rounded-lg p-4 sm:p-8 m-4`}>
+      <div className={`max-w-4xl w-full ${cartItems.length == 0 ? "h-[600px]" : ""} bg-white shadow-lg rounded-lg p-4 sm:p-8 m-4`}>
         <h1 className="text-3xl text-center font-extrabold mb-6 text-indigo-700">
           🛒 Your Cart
         </h1>
         <hr className="mb-5" />
 
         {cartItems.length === 0 ? (
-          <p className="text-gray-600 text-center text-lg font-bold">Cart is empty.</p>
+          <div className="flex flex-col items-center justify-center h-[400px] bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-inner">
+            <h2 className="text-2xl font-bold text-gray-700 mb-3">Your Cart is Empty 🛒</h2>
+            <p className="text-gray-500 text-center mb-6">
+              Looks like you haven’t added anything yet.
+              Browse shops and add your favorite items to see them here.
+            </p>
+            <button
+              onClick={() => navigate("/home")}
+              className="px-6 py-2 bg-orange-500 hover:bg-orange-600 
+                 rounded-lg text-white font-semibold transition-all duration-300 cursor-pointer"
+            >
+              Back to Home
+            </button>
+          </div>
         ) : (
           <>
             <div className="space-y-6">
@@ -34,21 +47,21 @@ const CartPage = () => {
 
             {/* Summary Section */}
             <div className="mt-8 bg-gray-50 rounded-lg p-6 shadow-inner">
-            
+
               <div className="flex justify-between">
                 <h2 className="text-xl font-bold">Total:</h2>
                 <p className="text-xl font-bold text-indigo-700">₹{totalAmount}</p>
               </div>
             </div>
             {/* Proceed Button */}
-              <div className="mt-6 flex justify-center">
-                <button
-                  onClick={() => navigate("/checkout")}
-                  className="px-8 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition transform hover:scale-105 cursor-pointer"
-                >
-                  Proceed To Checkout
-                </button>
-              </div>
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={() => navigate("/checkout")}
+                className="px-8 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition transform hover:scale-105 cursor-pointer"
+              >
+                Proceed To Checkout
+              </button>
+            </div>
           </>
         )}
       </div>

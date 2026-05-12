@@ -10,10 +10,12 @@ import { serverUrl } from '../App';
 import { useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
@@ -111,13 +113,21 @@ function Login() {
           {/* Password */}
           <div>
             <label className="block text-sm font-bold text-slate-800 mb-2">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Enter password"
-              required
-              className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-300 bg-white/80 backdrop-blur-sm text-lg"
-            />
+            <div className="relative">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Create password"
+                required
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-300 bg-white/80 backdrop-blur-sm text-lg pr-10"
+              />
+              <span
+                className="absolute right-3 top-3 cursor-pointer text-slate-600 hover:text-orange-500"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
+              </span>
+            </div>
           </div>
 
           <div className="flex justify-between items-center">

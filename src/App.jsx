@@ -32,6 +32,7 @@ import NotFound from './pages/NotFound'
 import EditProfile from "./pages/EditProfile";
 import DeliveredOrders from "./pages/Delivery_Boy/DeliveredOrders";
 import { lazy, Suspense } from "react";
+import ShopEarning from "./pages/Food_Partner/ShopEarning";
 
 const Grocery = lazy(() => import("./pages/Customer/Grocery"));
 
@@ -111,6 +112,8 @@ function App() {
       <Route path="/edit-profile" element={userData ? <EditProfile /> : <Navigate to="/login" />} />
 
       <Route path="/delivered-orders" element={userData ? <DeliveredOrders /> : <Navigate to="/login" />} />
+
+      <Route path="/shop-earning" element={userData ? <ShopEarning /> : <Navigate to="/login" />} />
 
     </Routes>
   )

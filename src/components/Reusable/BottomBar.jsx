@@ -67,7 +67,7 @@ export default function BottomBar({ userData, myOrders }) {
                     </button>
                 ) : (
                     <button
-                        onClick={() => navigate("/earning")}
+                        onClick={() => navigate("/shop-earning")}
                         className={`flex flex-col items-center p-2 rounded-xl transition-all duration-200 h-full flex-1
               ${isActive("/earning")
                                 ? "text-orange-600 scale-105"
