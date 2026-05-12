@@ -17,9 +17,7 @@ function useGetMyShop() {
                 dispatch(setShopData(null))
             }
         }
-        if (userData?.role === "foodPartner") {
-            fetchShop();
-        }
+        fetchShop()
     }, [dispatch, userData])
 }
 
