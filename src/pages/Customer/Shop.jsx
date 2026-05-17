@@ -18,8 +18,6 @@ function Shop() {
     const [shop, setShop] = useState()
     const { cartItems, userData } = useSelector(state => state.user);
 
-    console.log(items, shop);
-
     const fetchShop = async () => {
         try {
             const response = await axios.get(serverUrl + `/api/food/get-fooditems-by-shop/${shopId}`, { withCredentials: true })
