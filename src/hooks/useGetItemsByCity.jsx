@@ -7,7 +7,7 @@ import { setItemsInCity } from '../redux/slices/userSlice'
 
 function useGetItemsByCity() {
   const dispatch = useDispatch()
-  const { city } = useSelector(state => state.user)
+  const { userData, city } = useSelector(state => state.user)
 
   function shuffleArray(array) {
     return array
@@ -27,7 +27,7 @@ function useGetItemsByCity() {
       }
     }
     fetchItems();
-  }, [city])
+  }, [city, userData])
 }
 
 export default useGetItemsByCity

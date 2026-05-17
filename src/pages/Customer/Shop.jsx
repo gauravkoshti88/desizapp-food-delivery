@@ -9,6 +9,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import FoodCard from '../../components/Customer/FoodCard';
 import { IoCart } from "react-icons/io5";
 import { useSelector } from 'react-redux';
+import { IoIosArrowRoundBack } from 'react-icons/io';
 
 function Shop() {
     const { shopId } = useParams()
@@ -37,11 +38,10 @@ function Shop() {
         <div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100'>
             {/* Back Button */}
             <button
-                onClick={() => navigate("/home")}
-                className='group absolute top-4 left-4 z-50 md:top-8 md:left-8 lg:top-10 lg:left-10 flex items-center gap-2.5 bg-white/90 hover:bg-white backdrop-blur-xl shadow-2xl border border-gray-200/50 hover:border-gray-300 px-3 py-2 rounded-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-1 active:translate-y-0 active:shadow-xl text-gray-800 hover:text-gray-900 font-semibold text-sm md:text-base'
+                onClick={() => navigate(-1)}
+                className="fixed top-5 left-5 p-2 bg-white shadow-md hover:shadow-lg rounded-xl hover:scale-105 transition-all duration-200 border border-gray-200 z-10"
             >
-                <FaArrowLeft className='text-lg md:text-xl group-hover:-translate-x-1 transition-transform duration-300' />
-                <span>Back</span>
+                <IoIosArrowRoundBack size={22} className="text-orange-600" />
             </button>
 
             {/* Shop Header */}

@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { serverUrl } from '../App';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../redux/slices/userSlice';
 
 function useGetUser() {
     const dispatch = useDispatch();
+    // const { userData } = useSelector(state => state.user);
+
     useEffect(() => {
         const fetchUser = async () => {
             try {

@@ -136,7 +136,7 @@ function ShopOrderCard({ order }) {
                         bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-orange-400 text-gray-800
                         disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-300"
                                     onChange={(e) => handleUpdateStatus(order._id, shopOrder.shop._id, e.target.value)}
-                                    disabled={shopOrder?.status === "delivered"}
+                                    disabled={shopOrder?.status === "out of delivery" || shopOrder?.status === "delivered"}
                                 >
                                     <option value="">Change</option>
                                     <option value="pending">Pending</option>
@@ -173,7 +173,7 @@ function ShopOrderCard({ order }) {
                                 <p className="text-gray-500 text-sm">{b.phone}</p>
                             </div>
                         ))
-                    ) : shopOrder.assignDeliveryBoy ? (
+                    ) : shopOrder?.assignDeliveryBoy ? (
                         <div className="flex items-center justify-between bg-white/80 rounded-lg px-3 py-2 shadow-sm">
                             <p className="font-semibold text-gray-700">
                                 Name: <span className="text-sm text-gray-600">{shopOrder?.assignDeliveryBoy?.fullname}</span>
