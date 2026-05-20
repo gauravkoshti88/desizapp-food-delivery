@@ -33,6 +33,7 @@ import EditProfile from "./pages/EditProfile";
 import DeliveredOrders from "./pages/Delivery_Boy/DeliveredOrders";
 import { lazy, Suspense } from "react";
 import ShopEarning from "./pages/Food_Partner/ShopEarning";
+import useGetAiRecommended from "./hooks/useGetAiRecommended";
 
 const Grocery = lazy(() => import("./pages/Customer/Grocery"));
 
@@ -48,6 +49,7 @@ function App() {
   useGetItemsByCity()
   useGetMyOrders()
   useUpdateLocation()
+  // useGetAiRecommended()
 
   useEffect(() => {
     const socket = initSocket(serverUrl);

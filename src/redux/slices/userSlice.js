@@ -16,11 +16,15 @@ const userSlice = createSlice({
     searchItems: null,
     connected: false,
     shortsData: null,
+    // aiRecommendedData: null
   },
   reducers: {
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
+    // setAiRecommendedData: (state, action) => {
+    //   state.aiRecommendedData = action.payload;
+    // },
     setCity: (state, action) => {
       state.city = action.payload;
     },
