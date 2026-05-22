@@ -3,7 +3,6 @@
 > A modern, full-stack food delivery platform built with React, Node.js, and MongoDB. Order from your favorite restaurants and get fast delivery to your doorstep.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-brightgreen)](https://desizapp-food-delivery.vercel.app)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/gauravkoshti88/desizapp-food-delivery?style=social)](https://github.com/gauravkoshti88/desizapp-food-delivery)
 
 ---
