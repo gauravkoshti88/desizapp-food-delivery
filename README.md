@@ -361,7 +361,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Gaurav Koshti**
 - 🔗 **GitHub**: [@gauravkoshti88](https://github.com/gauravkoshti88)
-- 💼 **LinkedIn**: [Gaurav Koshti](www.linkedin.com/in/gaurav-koshti-565b73249)
+- 💼 **LinkedIn**: [Gaurav Koshti](https://linkedin.com/in/gaurav-koshti-565b73249)
 - 📧 **Email**: gauravkoshti1@gmail.com
 
 ---
