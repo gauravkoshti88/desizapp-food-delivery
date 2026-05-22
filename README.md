@@ -219,6 +219,79 @@ desizapp-food-delivery/
 
 ---
 
+## 📸 Screenshots
+
+### Welcome & Register & Login Page
+
+<p align="center">
+    <img src="./screenshots/w1.png" width="45%" />
+    <img src="./screenshots/w2.png" width="45%" />
+    <img src="./screenshots/register.png" width="45%" />
+    <img src="./screenshots/login.png" width="45%" />
+</p>
+
+### Customer Pages
+
+- For Desktop View 
+
+<p align="center">
+    <img src="./screenshots/customer-desktop/home1.png" width="45%" />
+    <img src="./screenshots/customer-desktop/item-card.png" width="45%" />
+    <img src="./screenshots/customer-desktop/grosery.png" width="45%" />
+    <img src="./screenshots/customer-desktop/cart.png" width="45%" />
+    <img src="./screenshots/customer-desktop/checkout.png" width="45%" />
+    <img src="./screenshots/customer-desktop/placed.png" width="45%" />
+    <img src="./screenshots/customer-desktop/my-orders.png" width="45%" />
+    <img src="./screenshots/customer-desktop/track-order.png" width="45%" />
+    <img src="./screenshots/customer-desktop/assign-boy.png" width="45%" />
+    <img src="./screenshots/customer-desktop/Deliverd.png" width="45%" />
+    <img src="./screenshots/customer-desktop/track-deliverd.png" width="45%" />
+    <img src="./screenshots/customer-desktop/profile.png" width="45%" />
+</p>
+
+- For Mobile View
+
+<p align="center">
+    <img src="./screenshots/customer-mobile/4.jpeg" width="45%" />
+    <img src="./screenshots/customer-mobile/6.jpeg" width="45%" />
+    <img src="./screenshots/customer-mobile/7.jpeg" width="45%" />
+    <img src="./screenshots/customer-mobile/8.jpeg" width="45%" />
+    <img src="./screenshots/customer-mobile/9.jpeg" width="45%" />
+</p>
+
+### Shop Pages
+
+- For Desktop View 
+
+<p align="center">
+    <img src="./screenshots/shop-desktop/shop-home.png" width="45%" />
+    <img src="./screenshots/shop-desktop/add-item.png" width="45%" />
+    <img src="./screenshots/shop-desktop/shop-item.png" width="45%" />
+    <img src="./screenshots/shop-desktop/orders.png" width="45%" />
+    <img src="./screenshots/shop-desktop/earning.png" width="45%" />
+</p>
+
+- For Mobile View 
+
+<p align="center">
+    <img src="./screenshots/shop-mobile/sm1.jpeg" width="45%" />
+    <img src="./screenshots/shop-mobile/sm2.jpeg" width="45%" />
+    <img src="./screenshots/shop-mobile/sm3.jpeg" width="45%" />
+    <img src="./screenshots/shop-mobile/sm4.jpeg" width="45%" />
+</p>
+
+### Delivery-Boy Pages
+
+<p align="center">
+    <img src="./screenshots/delivery-boy/13.jpeg" width="45%" />
+    <img src="./screenshots/delivery-boy/14.jpeg" width="45%" />
+    <img src="./screenshots/delivery-boy/15.jpeg" width="45%" />
+    <img src="./screenshots/delivery-boy/16.jpeg" width="45%" />
+    <img src="./screenshots/delivery-boy/17.jpeg" width="45%" />
+</p>
+
+---
+
 ## 🎯 Key Pages & Functionality
 
 | Route | Role | Description |
