@@ -252,11 +252,11 @@ desizapp-food-delivery/
 - For Mobile View
 
 <p align="center">
-    <img src="./screenshots/customer-mobile/4.jpeg" width="45%" />
-    <img src="./screenshots/customer-mobile/6.jpeg" width="45%" />
-    <img src="./screenshots/customer-mobile/7.jpeg" width="45%" />
-    <img src="./screenshots/customer-mobile/8.jpeg" width="45%" />
-    <img src="./screenshots/customer-mobile/9.jpeg" width="45%" />
+    <img src="./screenshots/customer-mobile/4.jpeg" height="500" />
+    <img src="./screenshots/customer-mobile/6.jpeg" height="500" />
+    <img src="./screenshots/customer-mobile/7.jpeg" height="500" />
+    <img src="./screenshots/customer-mobile/8.jpeg" height="500" />
+    <img src="./screenshots/customer-mobile/9.jpeg" height="500" />
 </p>
 
 ### Shop Pages
@@ -274,20 +274,20 @@ desizapp-food-delivery/
 - For Mobile View 
 
 <p align="center">
-    <img src="./screenshots/shop-mobile/sm1.jpeg" width="45%" />
-    <img src="./screenshots/shop-mobile/sm2.jpeg" width="45%" />
-    <img src="./screenshots/shop-mobile/sm3.jpeg" width="45%" />
-    <img src="./screenshots/shop-mobile/sm4.jpeg" width="45%" />
+    <img src="./screenshots/shop-mobile/sm1.jpeg" height="500" />
+    <img src="./screenshots/shop-mobile/sm2.jpeg" height="500" />
+    <img src="./screenshots/shop-mobile/sm3.jpeg" height="500" />
+    <img src="./screenshots/shop-mobile/sm4.jpeg" height="500" />
 </p>
 
 ### Delivery-Boy Pages
 
 <p align="center">
-    <img src="./screenshots/delivery-boy/13.jpeg" width="45%" />
-    <img src="./screenshots/delivery-boy/14.jpeg" width="45%" />
-    <img src="./screenshots/delivery-boy/15.jpeg" width="45%" />
-    <img src="./screenshots/delivery-boy/16.jpeg" width="45%" />
-    <img src="./screenshots/delivery-boy/17.jpeg" width="45%" />
+    <img src="./screenshots/delivery-boy/13.jpeg" height="500" />
+    <img src="./screenshots/delivery-boy/14.jpeg" height="500" />
+    <img src="./screenshots/delivery-boy/15.jpeg" height="500" />
+    <img src="./screenshots/delivery-boy/16.jpeg" height="500" />
+    <img src="./screenshots/delivery-boy/17.jpeg" height="500" />
 </p>
 
 ---
