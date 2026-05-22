@@ -104,10 +104,11 @@ Perfect for food delivery startups and restaurant management solutions.
 - Firebase - Authentication & Cloud Storage
 - Razorpay - Payment gateway
 - Cloudinary - Image hosting
+- Socket.io - Real-time communication
 
 ### **Deployment**
 - **Frontend**: Vercel
-- **Backend**: Render/Heroku
+- **Backend**: Render
 - **Database**: MongoDB Atlas
 
 ---
@@ -116,7 +117,7 @@ Perfect for food delivery startups and restaurant management solutions.
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- npm or yarn
+- npm
 - Git
 
 ### Clone Repository
@@ -256,19 +257,6 @@ desizapp-food-delivery/
 
 Create a `.env.local` file in the root directory:
 
-```env
-# Backend API URL
-VITE_API_URL=http://localhost:5000
-
-# Firebase Configuration (if using Firebase)
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_project_id
-
-# Optional: Razorpay, Cloudinary, etc.
-VITE_RAZORPAY_KEY=your_razorpay_key
-```
-
 ---
 
 ## 🤝 Contributing
@@ -300,8 +288,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Gaurav Koshti**
 - 🔗 **GitHub**: [@gauravkoshti88](https://github.com/gauravkoshti88)
-- 💼 **LinkedIn**: [Gaurav Koshti](https://linkedin.com/in/gaurav-koshti)
-- 📧 **Email**: gauravkoshti88@gmail.com
+- 💼 **LinkedIn**: [Gaurav Koshti](www.linkedin.com/in/gaurav-koshti-565b73249)
+- 📧 **Email**: gauravkoshti1@gmail.com
 
 ---
 
