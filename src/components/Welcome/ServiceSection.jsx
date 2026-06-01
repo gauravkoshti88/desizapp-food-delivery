@@ -2,8 +2,10 @@ import React from 'react'
 import { FcBusinessman } from "react-icons/fc";
 import { FcShipped } from "react-icons/fc";
 import { FcShop } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom';
 
 function ServiceSection() {
+    const navigate = useNavigate()
     return (
         <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
@@ -24,9 +26,12 @@ function ServiceSection() {
                         <FcBusinessman />
                     </div>
                     <h3 className="text-2xl font-bold text-slate-800 mb-4">Customers</h3>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 leading-relaxed mb-6">
                         Order from favorite restaurants, watch food reels, track deliveries in real-time.
                     </p>
+                    <button className="px-6 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform" onClick={()=>navigate("/login")}>
+                        Explore Customers
+                    </button>
                 </div>
 
                 {/* Food Partners */}
@@ -37,9 +42,12 @@ function ServiceSection() {
                         <FcShop />
                     </div>
                     <h3 className="text-2xl font-bold text-slate-800 mb-4">Food Partners</h3>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 leading-relaxed mb-6">
                         Showcase menus with reels, manage orders, grow your business effortlessly.
                     </p>
+                    <button className="px-6 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform" onClick={()=>navigate("/login")}>
+                        Join as Partner
+                    </button>
                 </div>
 
                 {/* Delivery */}
@@ -50,9 +58,12 @@ function ServiceSection() {
                         <FcShipped />
                     </div>
                     <h3 className="text-2xl font-bold text-slate-800 mb-4">Delivery</h3>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 leading-relaxed mb-6">
                         Accept jobs, optimize routes, update status, earn more with every delivery.
                     </p>
+                    <button className="px-6 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform" onClick={()=>navigate("/login")}>
+                        Start Delivering
+                    </button>
                 </div>
             </div>
         </div>
