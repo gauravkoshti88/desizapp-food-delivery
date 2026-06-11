@@ -149,7 +149,7 @@ function CustomerDashboard() {
                 onClick={() => handleFilterByCategory(cate.category)}
                 className={`cursor-pointer rounded-xl transition-all duration-300 ease-in-out
                   ${selectedCategory === cate.category
-                    ? "border-3 border-[#ff4d2d] shadow-lg shadow-orange-300 scale-105 bg-gradient-to-r from-orange-50 to-orange-100"
+                    ? "border-3 border-[#ff4d2d] shadow-lg shadow-red-300 scale-105 bg-gradient-to-r from-orange-50 to-orange-100"
                     : "border border-transparent hover:border-orange-200 hover:scale-105"
                   }`}
               >
