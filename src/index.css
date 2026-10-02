@@ -1,17 +1,33 @@
 @import "tailwindcss";
 
-html{
-    scroll-behavior: smooth;
-    overflow-y: scroll;
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
-*{
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+body {
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
-::-webkit-scrollbar,
-::-webkit-scrollbar{
-    display: none;
+/* Hide scrollbar everywhere */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling for scrollable containers */
+html,
+body,
+#root {
+  scroll-behavior: smooth;
+}
+
+/* Better anchor scrolling with fixed navbar */
+html {
+  scroll-padding-top: 80px;
+}

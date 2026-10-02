@@ -143,12 +143,12 @@ function CustomerDashboard() {
               key={tile.path}
               onClick={() => navigate(tile.path)}
               aria-label={tile.label}
-              className="flex h-20 items-center justify-center overflow-hidden rounded-2xl bg-purple-600 px-3 shadow-sm transition hover:bg-purple-700 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 active:scale-[0.98] sm:h-24"
+              className="flex h-15 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 px-2 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 active:scale-[0.98] sm:h-20 sm:px-3"
             >
               <img
                 src={tile.img}
                 alt=""
-                className="h-full max-w-full object-contain"
+                className="h-[115%] w-full object-contain transition-transform duration-300 hover:scale-105"
               />
             </button>
           ))}
