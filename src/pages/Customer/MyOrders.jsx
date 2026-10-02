@@ -2,14 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomerOrderCard from "../../components/Customer/CustomerOrderCard";
 import ShopOrderCard from "../../components/FoodPartner/ShopOrderCard";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { LuPackageOpen } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { setMyOrders, updateDeliveredStatus, updateRealtimeOrderStatus } from "../../redux/slices/userSlice";
+import {
+  setMyOrders,
+  updateDeliveredStatus,
+  updateRealtimeOrderStatus,
+} from "../../redux/slices/userSlice";
 import { getSocket } from "../../utils/socketService";
 
 const MyOrders = () => {
-  const { userData, myOrders } = useSelector(state => state.user);
-  const navigate = useNavigate()
+  const { userData, myOrders } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const socket = getSocket();
   const [activeTab, setActiveTab] = useState("recent");
@@ -19,32 +24,42 @@ const MyOrders = () => {
       if (data.shopOrders?.owner._id == userData._id) {
         dispatch(setMyOrders([data, ...myOrders]));
       }
-    })
+    });
 
     socket.on("updateStatus", ({ orderId, shopId, status, userId }) => {
       if (userId === userData._id) {
-        dispatch(updateRealtimeOrderStatus({ orderId, shopId, status }))
+        dispatch(updateRealtimeOrderStatus({ orderId, shopId, status }));
       }
-    })
-
-    socket.on("delivered", ({ orderId, shopId, status, userId }) => {
-      console.log(orderId, shopId, userId, status);
-      if (userId === userData._id) {
-        dispatch(updateDeliveredStatus({ orderId, shopId, status }))
-      }
-    })
-
-    socket.on("acceptOrder", ({ orderId, shopId, status, userId, assignTo, acceptedAt }) => {
-      dispatch(updateRealtimeOrderStatus({ orderId, shopId, status, assignTo, acceptedAt }));
     });
 
+    socket.on("delivered", ({ orderId, shopId, status, userId }) => {
+      if (userId === userData._id) {
+        dispatch(updateDeliveredStatus({ orderId, shopId, status }));
+      }
+    });
+
+    socket.on(
+      "acceptOrder",
+      ({ orderId, shopId, status, userId, assignTo, acceptedAt }) => {
+        dispatch(
+          updateRealtimeOrderStatus({
+            orderId,
+            shopId,
+            status,
+            assignTo,
+            acceptedAt,
+          }),
+        );
+      },
+    );
+
     return () => {
-      socket?.off("newOrder")
-      socket?.off("updateStatus")
-      socket?.off("delivered")
-      socket?.off("acceptOrder")
-    }
-  }, [socket, dispatch, myOrders, userData])
+      socket?.off("newOrder");
+      socket?.off("updateStatus");
+      socket?.off("delivered");
+      socket?.off("acceptOrder");
+    };
+  }, [socket, dispatch, myOrders, userData]);
 
   const normalizeShopOrders = (order) => {
     if (Array.isArray(order.shopOrders)) {
@@ -56,120 +71,132 @@ const MyOrders = () => {
     return [];
   };
 
-
-  const filteredOrders = myOrders?.filter(order => {
+  const filteredOrders = myOrders?.filter((order) => {
     const shopOrders = normalizeShopOrders(order);
 
     if (activeTab === "recent") {
-      return shopOrders.some(so => so.status !== "delivered");
+      return shopOrders.some((so) => so.status !== "delivered");
     } else {
-      return shopOrders.some(so => so.status === "delivered");
+      return shopOrders.some((so) => so.status === "delivered");
     }
   });
 
-const orderCount = myOrders?.filter(order =>
-        Array.isArray(order.shopOrders)
-            ? order.shopOrders.some(so => so.status !== "delivered")
-            : order.shopOrders?.status !== "delivered"
-    ).length || 0
+  const orderCount =
+    myOrders?.filter((order) =>
+      Array.isArray(order.shopOrders)
+        ? order.shopOrders.some((so) => so.status !== "delivered")
+        : order.shopOrders?.status !== "delivered",
+    ).length || 0;
 
+  const tabs = [
+    { id: "recent", label: "Recent", count: orderCount },
+    { id: "delivered", label: "Delivered" },
+  ];
 
-  // Show empty state when no orders available
-  const renderEmptyState = () => (
-    <div className="flex flex-col items-center justify-center py-20 px-8 text-center">
-      <div className="w-24 h-24 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
-        <svg
-          className="w-12 h-12 text-orange-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-          />
-        </svg>
-      </div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">No Orders Yet</h2>
-      <p className="text-gray-600 mb-8 max-w-md">
-        {userData.role === "user"
-          ? "You haven't placed any orders yet. Start exploring restaurants and place your first order!"
-          : "No orders received yet. Once customers place orders at your shop, they'll appear here."
-        }
-      </p>
-      <div className="flex gap-4">
-        {userData.role === "user" && (
+  const renderEmptyState = () => {
+    const isRecent = activeTab === "recent";
+    const isCustomer = userData.role === "user";
+
+    let title = "No orders yet";
+    let message = isCustomer
+      ? "You haven't placed any orders yet. Explore restaurants and place your first order."
+      : "Once customers place orders at your shop, they'll appear here.";
+
+    if (myOrders?.length > 0) {
+      title = isRecent ? "No active orders" : "No delivered orders yet";
+      message = isRecent
+        ? "Orders that are still being prepared or delivered will show up here."
+        : "Orders you've received will be listed here once they're delivered.";
+    }
+
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center rounded-2xl border border-stone-200 bg-white px-6 py-12 text-center shadow-sm">
+        <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-orange-50 text-orange-500">
+          <LuPackageOpen size={28} />
+        </div>
+        <h2 className="text-xl font-bold">{title}</h2>
+        <p className="mt-2 text-sm text-stone-500">{message}</p>
+        {isCustomer && (
           <button
             onClick={() => navigate("/home")}
-            className="px-8 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="mt-6 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
           >
-            Explore Food
+            Explore food
           </button>
         )}
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <div className="w-full min-h-screen bg-amber-50 flex justify-center px-4">
-      <div className="w-full max-w-[800px] p-4">
-        <div className="flex items-center justify-around gap-[20px] mb-6">
-          <div
+    <div className="min-h-screen bg-stone-100 text-stone-900">
+      {/* Top bar */}
+      <header className="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
+          <button
             onClick={() => navigate("/home")}
-            className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md absolute top-3 left-3"
+            aria-label="Back to home"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-600 transition hover:bg-orange-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
           >
-            <IoIosArrowRoundBack size={24} className="text-orange-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-center">My Orders</h1>
+            <IoIosArrowRoundBack size={28} />
+          </button>
+          <h1 className="text-lg font-bold sm:text-xl">My orders</h1>
         </div>
+      </header>
 
-        <div className="flex justify-center mt-12 w-full">
-          <div className="w-full max-w-2xl mx-4">
-            <div className="flex bg-gradient-to-r from-gray-100 to-gray-200 shadow-xl rounded-3xl p-1 relative overflow-hidden">
-              {/* Active Indicator - Sliding Bar */}
-              <div
-                className="absolute top-1 bottom-1 bg-gradient-to-r from-orange-500 to-emerald-500 rounded-2xl shadow-lg transition-all duration-400 ease-out transform"
-                style={{
-                  left: activeTab === "recent" ? '1%' : '49%',
-                  width: '50%'
-                }}
-              />
-
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
+        {/* Tabs */}
+        <div
+          role="tablist"
+          aria-label="Order status"
+          className="grid grid-cols-2 gap-1 rounded-xl bg-stone-200 p-1"
+        >
+          {tabs.map((tab) => {
+            const selected = activeTab === tab.id;
+            return (
               <button
-                onClick={() => setActiveTab("recent")}
-                className="relative z-10 flex-1 px-6 py-3.5 font-semibold rounded-2xl transition-colors duration-300 hover:scale-[1.02]"
+                key={tab.id}
+                role="tab"
+                aria-selected={selected}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 sm:text-base ${
+                  selected
+                    ? "bg-white text-orange-600 shadow-sm"
+                    : "text-stone-600 hover:text-stone-900"
+                }`}
               >
-                📦 Recent Orders
+                {tab.label}
+                {tab.count > 0 && (
+                  <span className="rounded-full bg-orange-500 px-2 py-0.5 text-xs font-bold text-white">
+                    {tab.count}
+                  </span>
+                )}
               </button>
-
-              <button
-                onClick={() => setActiveTab("delivered")}
-                className="relative z-10 flex-1 px-6 py-3.5 font-semibold rounded-2xl transition-colors duration-300 hover:scale-[1.02]"
-              >
-                ✅ Delivered
-              </button>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
-        <div className="space-y-6 mt-10">
-          {filteredOrders?.length > 0 ? (
-            filteredOrders.map((order, index) => {
-              const shopOrders = normalizeShopOrders(order);
+        {/* Orders */}
+        <div className="mt-6 space-y-4 sm:space-y-6">
+          {filteredOrders?.length > 0
+            ? filteredOrders.map((order, index) => {
+                const shopOrders = normalizeShopOrders(order);
 
-              return userData.role === "user" ? (
-                <CustomerOrderCard order={{ ...order, shopOrders }} key={order._id || index} />
-              ) : userData.role === "foodPartner" ? (
-                <ShopOrderCard order={{ ...order, shopOrders }} key={order._id || index} />
-              ) : null;
-            })
-          ) : (
-            renderEmptyState()
-          )}
+                return userData.role === "user" ? (
+                  <CustomerOrderCard
+                    order={{ ...order, shopOrders }}
+                    key={order._id || index}
+                  />
+                ) : userData.role === "foodPartner" ? (
+                  <ShopOrderCard
+                    order={{ ...order, shopOrders }}
+                    key={order._id || index}
+                  />
+                ) : null;
+              })
+            : renderEmptyState()}
         </div>
-      </div>
+      </main>
     </div>
   );
 };

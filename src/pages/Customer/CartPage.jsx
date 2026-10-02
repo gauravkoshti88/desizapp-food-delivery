@@ -1,70 +1,113 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { FiShoppingBag } from "react-icons/fi";
 import CartItemCard from "../../components/Customer/CartItemCard";
 
 const CartPage = () => {
   const { cartItems, totalAmount } = useSelector((state) => state.user);
-
   const navigate = useNavigate();
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-5 mb-5 sm:mb-0">
-      <button
-        onClick={() => navigate("/home")}
-        className="p-2 bg-orange-50 hover:bg-orange-100 rounded-xl hover:scale-105 transition-all duration-200 shadow-md fixed top-3 left-3"
-      >
-        <IoIosArrowRoundBack size={24} className="text-orange-600" />
-      </button>
-      <div className={`max-w-4xl w-full ${cartItems.length == 0 ? "h-[600px]" : ""} bg-white shadow-lg rounded-lg p-4 sm:p-8 m-4`}>
-        <h1 className="text-3xl text-center font-extrabold mb-6 text-indigo-700">
-          🛒 Your Cart
-        </h1>
-        <hr className="mb-5" />
+  const itemCount = cartItems.length;
+  const isEmpty = itemCount === 0;
 
-        {cartItems.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-[400px] bg-gray-50 border border-gray-200 rounded-xl p-8 shadow-inner">
-            <h2 className="text-2xl font-bold text-gray-700 mb-3">Your Cart is Empty 🛒</h2>
-            <p className="text-gray-500 text-center mb-6">
-              Looks like you haven’t added anything yet.
-              Browse shops and add your favorite items to see them here.
+  return (
+    <div className="min-h-screen bg-stone-100 text-stone-900">
+      {/* Top bar */}
+      <header className="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
+          <button
+            onClick={() => navigate("/home")}
+            aria-label="Back to home"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-600 transition hover:bg-orange-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+          >
+            <IoIosArrowRoundBack size={28} />
+          </button>
+          <h1 className="text-lg font-bold sm:text-xl">Your cart</h1>
+          {!isEmpty && (
+            <span className="ml-auto rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-700">
+              {itemCount} {itemCount === 1 ? "item" : "items"}
+            </span>
+          )}
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-6xl px-4 py-6 pb-32 sm:px-6 lg:pb-10">
+        {isEmpty ? (
+          /* Empty state */
+          <div className="mx-auto mt-10 flex max-w-md flex-col items-center rounded-2xl border border-stone-200 bg-white px-6 py-12 text-center shadow-sm">
+            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-orange-50 text-orange-500">
+              <FiShoppingBag size={28} />
+            </div>
+            <h2 className="text-xl font-bold">Your cart is empty</h2>
+            <p className="mt-2 text-sm text-stone-500">
+              Browse shops and add items to see them here.
             </p>
             <button
               onClick={() => navigate("/home")}
-              className="px-6 py-2 bg-orange-500 hover:bg-orange-600 
-                 rounded-lg text-white font-semibold transition-all duration-300 cursor-pointer"
+              className="mt-6 rounded-lg bg-orange-500 px-6 py-2.5 font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
             >
-              Back to Home
+              Browse shops
             </button>
           </div>
         ) : (
-          <>
-            <div className="space-y-6">
+          <div className="grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start">
+            {/* Items */}
+            <section
+              aria-label="Cart items"
+              className="space-y-4 rounded-2xl border border-stone-200 bg-white p-3 shadow-sm sm:p-5"
+            >
               {cartItems.map((item, idx) => (
                 <CartItemCard item={item} key={item._id + "-" + idx} />
               ))}
-            </div>
+            </section>
 
-            {/* Summary Section */}
-            <div className="mt-8 bg-gray-50 rounded-lg p-6 shadow-inner">
-
-              <div className="flex justify-between">
-                <h2 className="text-xl font-bold">Total:</h2>
-                <p className="text-xl font-bold text-indigo-700">₹{totalAmount}</p>
+            {/* Summary: sidebar on desktop */}
+            <aside className="hidden rounded-2xl border border-stone-200 bg-white p-6 shadow-sm lg:sticky lg:top-24 lg:block">
+              <h2 className="text-lg font-bold">Order summary</h2>
+              <dl className="mt-4 space-y-3 text-sm">
+                <div className="flex justify-between text-stone-600">
+                  <dt>Items ({itemCount})</dt>
+                  <dd>₹{totalAmount}</dd>
+                </div>
+              </dl>
+              <div className="my-4 border-t border-stone-200" />
+              <div className="flex items-baseline justify-between">
+                <span className="font-semibold">Total</span>
+                <span className="text-2xl font-extrabold text-orange-600">
+                  ₹{totalAmount}
+                </span>
               </div>
-            </div>
-            {/* Proceed Button */}
-            <div className="mt-6 flex justify-center">
               <button
                 onClick={() => navigate("/checkout")}
-                className="px-8 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition transform hover:scale-105 cursor-pointer"
+                className="mt-6 w-full rounded-lg bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
               >
-                Proceed To Checkout
+                Proceed to checkout
               </button>
-            </div>
-          </>
+            </aside>
+          </div>
         )}
-      </div>
+      </main>
+
+      {/* Summary: sticky bottom bar on mobile/tablet */}
+      {!isEmpty && (
+        <div className="fixed inset-x-0 bottom-0 z-20 border-t border-stone-200 bg-white px-4 py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.06)] lg:hidden">
+          <div className="mx-auto flex max-w-6xl items-center gap-4">
+            <div className="min-w-0">
+              <p className="text-xs text-stone-500">Total</p>
+              <p className="text-xl font-extrabold text-orange-600">
+                ₹{totalAmount}
+              </p>
+            </div>
+            <button
+              onClick={() => navigate("/checkout")}
+              className="ml-auto flex-1 rounded-lg bg-orange-500 py-3 font-semibold text-white transition active:bg-orange-600 sm:max-w-xs sm:flex-none sm:px-8"
+            >
+              Proceed to checkout
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
