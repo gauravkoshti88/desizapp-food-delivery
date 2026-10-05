@@ -11,7 +11,6 @@ import ZappShortsImg from "../assets/ZappShorts.png";
 import ZappGroceryImg from "../assets/ZappGrocery2.png";
 import Footer from "./Welcome/Footer.jsx";
 
-/* Horizontal scroller with arrow buttons (arrows show on sm+ only; touch users swipe). */
 function ScrollRow({ children }) {
   const ref = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -27,7 +26,9 @@ function ScrollRow({ children }) {
     };
 
     update();
+
     el.addEventListener("scroll", update, { passive: true });
+
     const observer = new ResizeObserver(update);
     observer.observe(el);
 
@@ -37,11 +38,12 @@ function ScrollRow({ children }) {
     };
   }, [children]);
 
-  const scroll = (direction) =>
+  const scroll = (direction) => {
     ref.current?.scrollBy({
       left: direction === "left" ? -240 : 240,
       behavior: "smooth",
     });
+  };
 
   const arrowClass =
     "absolute top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 shadow-md transition hover:bg-orange-50 hover:text-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 sm:flex";
@@ -50,6 +52,7 @@ function ScrollRow({ children }) {
     <div className="relative">
       {canScrollLeft && (
         <button
+          type="button"
           aria-label="Scroll left"
           onClick={() => scroll("left")}
           className={`${arrowClass} -left-3`}
@@ -57,14 +60,17 @@ function ScrollRow({ children }) {
           <FaChevronLeft size={14} />
         </button>
       )}
+
       <div
         ref={ref}
         className="flex snap-x gap-3 overflow-x-auto scroll-smooth px-1 py-2 [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
+
       {canScrollRight && (
         <button
+          type="button"
           aria-label="Scroll right"
           onClick={() => scroll("right")}
           className={`${arrowClass} -right-3`}
@@ -95,30 +101,42 @@ function CustomerDashboard() {
   const { city, shopsInCity, itemsInCity, searchItems } = useSelector(
     (state) => state.user,
   );
+
+  console.log(itemsInCity, searchItems);
+
   const [selectedCategory, setSelectedCategory] = useState(null);
+
   const navigate = useNavigate();
 
-  // Derived from the store, so the filter stays correct when items reload.
   const updatedItemList =
     !selectedCategory || selectedCategory === "All"
       ? itemsInCity
-      : (itemsInCity || []).filter((i) => i.category === selectedCategory);
+      : (itemsInCity || []).filter(
+          (item) => item.category === selectedCategory,
+        );
 
   const promoTiles = [
-    { img: ZappGroceryImg, label: "Zapp Grocery", path: "/grocery" },
-    { img: ZappShortsImg, label: "Zapp Shorts", path: "/zapp-shorts" },
+    {
+      img: ZappGroceryImg,
+      label: "Zapp Grocery",
+      path: "/grocery",
+    },
+    {
+      img: ZappShortsImg,
+      label: "Zapp Shorts",
+      path: "/zapp-shorts",
+    },
   ];
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-stone-100 text-stone-900">
       <Navbar />
 
-      {/* pt-* clears the fixed navbar; adjust if your navbar height differs */}
       <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 px-4 pb-24 pt-36 sm:space-y-10 sm:px-6 sm:pb-10 md:pt-24 lg:px-8">
-        {/* Search results */}
         {searchItems && (
           <section className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm sm:p-6">
             <SectionHeading>Search results</SectionHeading>
+
             {searchItems.length > 0 ? (
               <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {searchItems.map((food, index) => (
@@ -133,13 +151,13 @@ function CustomerDashboard() {
           </section>
         )}
 
-        {/* Promo tiles */}
         <section
           aria-label="Quick links"
           className="grid grid-cols-2 gap-3 sm:gap-5"
         >
           {promoTiles.map((tile) => (
             <button
+              type="button"
               key={tile.path}
               onClick={() => navigate(tile.path)}
               aria-label={tile.label}
@@ -154,35 +172,40 @@ function CustomerDashboard() {
           ))}
         </section>
 
-        {/* Categories */}
         <section className="space-y-3">
           <SectionHeading>Discover flavors you'll love</SectionHeading>
+
           <ScrollRow>
             {categories.map((cate, index) => {
               const selected = selectedCategory === cate.category;
+
               return (
-                <button
+                <div
                   key={index}
-                  onClick={() => setSelectedCategory(cate.category)}
-                  aria-pressed={selected}
-                  className={`shrink-0 snap-start rounded-xl border-2 p-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
+                  className={`shrink-0 snap-start rounded-xl border-2 p-1 transition ${
                     selected
                       ? "border-orange-500 bg-orange-50"
                       : "border-transparent hover:border-orange-200 hover:bg-white"
                   }`}
                 >
-                  <CategoryCard name={cate.category} image={cate.image} />
-                </button>
+                  <CategoryCard
+                    name={cate.category}
+                    image={cate.image}
+                    onClick={() =>
+                      setSelectedCategory(selected ? null : cate.category)
+                    }
+                  />
+                </div>
               );
             })}
           </ScrollRow>
         </section>
 
-        {/* Shops */}
         <section className="space-y-3">
           <SectionHeading>
             Best shops in <span className="text-orange-600">{city}</span>
           </SectionHeading>
+
           {shopsInCity && shopsInCity.length > 0 ? (
             <ScrollRow>
               {shopsInCity.map((shop, index) => (
@@ -198,18 +221,20 @@ function CustomerDashboard() {
           ) : (
             <EmptyNote
               title="No shops available"
-              message={`No shops are listed in ${city || "your city"} yet. Check back soon.`}
+              message={`No shops are listed in ${
+                city || "your city"
+              } yet. Check back soon.`}
             />
           )}
         </section>
 
-        {/* Food items */}
         <section className="space-y-4">
           <SectionHeading>
             {selectedCategory && selectedCategory !== "All"
               ? selectedCategory
               : "Food items"}
           </SectionHeading>
+
           {updatedItemList && updatedItemList.length > 0 ? (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {updatedItemList.map((food, index) => (
